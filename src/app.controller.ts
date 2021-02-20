@@ -4,11 +4,16 @@ import { AppService } from './app.service';
 import { AddMetricDTO, EmptyDTO, MetricSumDTO } from './dto';
 
 @ApiTags('Metric')
-@Controller('/metric')
+@Controller('/')
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
-  @Post(':key')
+  @Get('')
+  index() {
+    return 'Welcome to Metric Test, Documentation can be should at /docs';
+  }
+
+  @Post('/metric/:key')
   @ApiCreatedResponse({
     type: EmptyDTO,
   })
@@ -16,7 +21,7 @@ export class AppController {
     return this.appService.log(key, body.value);
   }
 
-  @Get('/:key/sum')
+  @Get('/metric/:key/sum')
   @ApiCreatedResponse({
     type: MetricSumDTO,
   })
